@@ -41,9 +41,9 @@ COMMON := $(BASEDIR)/util
 #          qfits-an/libqfits.a -- FITS files
 #            util/libanbase.a  -- basic stuff
 
-include $(COMMON)/makefile.common
-include $(COMMON)/makefile.qfits
-include $(COMMON)/makefile.cfitsio
+# include $(COMMON)/makefile.common
+# include $(COMMON)/makefile.qfits
+# include $(COMMON)/makefile.cfitsio
 
 .PHONY: all
 all: subdirs
