@@ -41,9 +41,9 @@ COMMON := $(BASEDIR)/util
 #          qfits-an/libqfits.a -- FITS files
 #            util/libanbase.a  -- basic stuff
 
-# include $(COMMON)/makefile.common
-# include $(COMMON)/makefile.qfits
-# include $(COMMON)/makefile.cfitsio
+include $(COMMON)/makefile.common
+#include $(COMMON)/makefile.qfits
+#include $(COMMON)/makefile.cfitsio
 
 .PHONY: all
 all: subdirs
@@ -216,7 +216,8 @@ snapshot:
 	bzip2 --best -c snapshot.tar > $$SSD.tar.bz2
 
 LIBKD_RELEASE_DIR := libkd-$(RELEASE_VER)
-LIBKD_RELEASE_SUBDIRS := qfits-an libkd \
+LIBKD_RELEASE_SUBDIRS := qfits-an libkd doc \
+	CREDITS LICENSE __init__.py setup-libkd.py Makefile \
 	util/ioutils.c util/mathutil.c util/fitsioutils.c util/fitsbin.h \
 	util/ioutils.h util/mathutil.h util/fitsioutils.h util/fitsbin.c \
 	util/an-endian.c util/fitsfile.c util/log.c util/errors.c util/tic.c \
@@ -225,7 +226,7 @@ LIBKD_RELEASE_SUBDIRS := qfits-an libkd \
 	util/bl.h util/bl.ph  util/bl-nl.h util/bl-nl.ph  \
 	util/keywords.h util/an-bool.h util/mathutil.inc util/starutil.h \
 	util/an-thread.h util/an-thread-pthreads.h util/thread-specific.inc \
-	util/__init__.py util/starutil_numpy.py
+	util/__init__.py util/starutil_numpy.py util/makefile.common
 
 release-libkd:
 	-rm -R $(LIBKD_RELEASE_DIR) $(LIBKD_RELEASE_DIR).tar $(LIBKD_RELEASE_DIR).tar.gz $(LIBKD_RELEASE_DIR).tar.bz2
@@ -242,7 +243,7 @@ LIBKD_SNAPSHOT_DIR := snapshot-libkd
 
 snapshot-libkd:
 	-rm -R $(LIBKD_SNAPSHOT_DIR)
-	svn export --depth files $(SNAPSHOT_SVN) $(LIBKD_SNAPSHOT_DIR)
+	svn export --depth empty $(SNAPSHOT_SVN) $(LIBKD_SNAPSHOT_DIR)
 	svn export --depth empty $(SNAPSHOT_SVN)/util $(LIBKD_SNAPSHOT_DIR)/util
 	for x in $(LIBKD_RELEASE_SUBDIRS); do \
 		svn export $(SNAPSHOT_SVN)/$$x $(LIBKD_SNAPSHOT_DIR)/$$x; \
